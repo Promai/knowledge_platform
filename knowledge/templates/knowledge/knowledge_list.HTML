@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Список знаний</title>
+</head>
+<body>
+    <h1>Список знаний</h1>
+
+    <form method="get">
+        <label for="category">Выберите категорию:</label>
+        <select name="category" id="category">
+            <option value="">Все категории</option>
+            {% for category in categories %}
+                <option value="{{ category.id }}" {% if request.GET.category == category.id|stringformat:'s' %}selected{% endif %}>{{ category.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Фильтр</button>
+    </form>
+
+    <ul>
+        {% for knowledge in knowledges %}
+            <li>
+                <a href="{% url 'knowledge_detail' pk=knowledge.pk %}">{{ knowledge.title }}</a>
+                {% if knowledge.category %}
+                    (Категория: {{ knowledge.category.name }})
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Пока нет ни одного знания.</li>
+        {% endfor %}
+    </ul>
+
+</body>
+</html>
