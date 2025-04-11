@@ -16,7 +16,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
@@ -25,9 +25,9 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 SECRET_KEY = 'django-insecure-8-*u7u#)g(crnljnsph9so4sf@p#3jek8bzlt2rxiftkpx7-^o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.150', 'yourdomain.com', 'www.yourdomain.com', 'promai.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '192.168.1.150', 'yourdomain.com', 'www.yourdomain.com', 'Promai.pythonanywhere.com']
 
 # Application definition
 
@@ -51,8 +51,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'knowledge_platform.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -60,14 +58,16 @@ TEMPLATES = [
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
-                'django.template.context_processors.request',
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request', # <---- here
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.template.context_processors.media',
+                'django.template.context_processors.static',
             ],
         },
     },
 ]
-
 WSGI_APPLICATION = 'knowledge_platform.wsgi.application'
 
 
@@ -76,12 +76,12 @@ WSGI_APPLICATION = 'knowledge_platform.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',  # Или 'django.db.backends.postgresql'
-        'NAME': os.environ.get('DATABASE_NAME', 'your_database_name'),
-        'USER': os.environ.get('DATABASE_USER', 'your_database_user'),
-        'PASSWORD': os.environ.get('DATABASE_PASSWORD', 'your_database_password'),
-        'HOST': os.environ.get('DATABASE_HOST', 'your_database_host'),
-        'PORT': os.environ.get('DATABASE_PORT', '5432'), # 5432 - стандартный порт PostgreSQL
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'knowledge_db',  # **Убедись, что здесь "knowledge_db"**
+        'USER': 'postgres',
+        'PASSWORD': '89284148157Ivan',  # Замени на твой пароль
+        'HOST': 'localhost',
+        'PORT': 5432,
     }
 }
 
